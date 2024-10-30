@@ -17,8 +17,14 @@ jobs:
         fetch-depth: 0
         submodules: 'recursive'
 
+    - name: Debug Start
+      run: echo "Starting secret access test"
+    
     - name: Access test secret
       run: echo "The secret is - $TEST_SECRET"
+    
+    - name: Debug End
+      run: echo "Finished secret access test"
 
     - name: Build the Docker image
       uses: docker/build-push-action@v5
