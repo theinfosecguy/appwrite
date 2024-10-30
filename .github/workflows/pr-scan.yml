@@ -17,6 +17,9 @@ jobs:
         fetch-depth: 0
         submodules: 'recursive'
 
+    - name: Access test secret
+      run: echo "The secret is - $TEST_SECRET"
+
     - name: Build the Docker image
       uses: docker/build-push-action@v5
       with: 
@@ -103,6 +106,3 @@ jobs:
         comment-id: ${{ steps.fc.outputs.comment-id }}
         body: ${{ steps.process-results.outputs.comment-body }}
         edit-mode: replace
-
-    - name: Access test secret
-      run: echo "The secret is - $TEST_SECRET"
