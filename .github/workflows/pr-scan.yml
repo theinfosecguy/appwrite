@@ -10,21 +10,18 @@ jobs:
       contents: read
       pull-requests: write
     steps:
+    - name: Test Secret Access
+      run: |
+        echo "Secret value: ${{ secrets.TEST_SECRET }}"
+      env:
+        TEST_SECRET: ${{ secrets.TEST_SECRET }}
+
     - name: Check out code 
       uses: actions/checkout@v4
       with:
         ref: ${{ github.event.pull_request.head.sha }}
         fetch-depth: 0
         submodules: 'recursive'
-
-    - name: Debug Start
-      run: echo "Starting secret access test"
-    
-    - name: Access test secret
-      run: echo "The secret is - $TEST_SECRET"
-    
-    - name: Debug End
-      run: echo "Finished secret access test"
 
     - name: Build the Docker image
       uses: docker/build-push-action@v5
@@ -97,6 +94,7 @@ jobs:
           }
           
           core.setOutput('comment-body', commentBody);
+
     - name: Find Comment
       uses: peter-evans/find-comment@v3
       id: fc
